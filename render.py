@@ -4,6 +4,8 @@ from PIL import Image, ImageChops
 import pathlib
 import subprocess
 
+SET_TO_WALLPAPER = False  # Only works with GNOME
+
 def render_greyline_composite(day_image, night_image, mask_image, render_filename, hour=None):
     """
     Create a new composite image based off time of day.
@@ -46,4 +48,4 @@ def set_wallpaper(filename):
 
 if __name__ == "__main__":
     render_greyline_composite("day_low.png", "night_low.png", "mask_low.png", "render.png")
-    #set_wallpaper("render.png") # Only uncomment if you're running GNOME
+    if SET_TO_WALLPAPER: set_wallpaper("render.png")
