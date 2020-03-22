@@ -34,7 +34,7 @@ def render_greyline_composite(day_image, night_image, mask_image, render_filenam
     im.save(get_path(render_filename))
 
 def get_path(filename):
-    path = pathlib.Path().absolute()
+    path = pathlib.Path(__file__).parent.absolute()
     uri = "{}/{}".format(path, filename)
     return uri
 
