@@ -44,7 +44,6 @@ def set_wallpaper(filename):
     args = ["gsettings", "set", "org.gnome.desktop.background", "picture-uri", uri]
     subprocess.Popen(args)
 
-
 if __name__ == "__main__":
     render_greyline_composite("day_low.png", "night_low.png", "mask_low.png", "render.png")
     #set_wallpaper("render.png") # Only uncomment if you're running GNOME
