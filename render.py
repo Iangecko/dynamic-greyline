@@ -22,16 +22,21 @@ def render_greyline_composite(day_image, night_image, mask_image, render_filenam
         time = datetime.utcnow()
         hour = time.hour + time.minute / 60
 
-    day = Image.open(day_image)
-    night = Image.open(night_image)
+    day = Image.open(get_path(day_image))
+    night = Image.open(get_path(night_image))
 
-    mask = Image.open(mask_image).convert('L')
+    mask = Image.open(get_path(mask_image)).convert('L')
     mask_width = mask.size[0]
     shift = -(mask_width/24)*(hour+12)
     mask = ImageChops.offset(mask, int(shift), 0)
     im = Image.composite(day, night, mask)
 
-    im.save(render_filename)
+    im.save(get_path(render_filename))
+
+def get_path(filename):
+    path = pathlib.Path().absolute()
+    uri = "{}/{}".format(path, filename)
+    return uri
 
 def set_wallpaper(filename):
     """
@@ -40,9 +45,7 @@ def set_wallpaper(filename):
     filename (str): path to image to be set as wallpaper
     """
 
-    path = pathlib.Path().absolute()
-    uri = "{}/{}".format(path, filename)
-
+    uri = get_path(filename)
     args = ["gsettings", "set", "org.gnome.desktop.background", "picture-uri", uri]
     subprocess.Popen(args)
 
